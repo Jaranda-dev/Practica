@@ -1,0 +1,14 @@
+{
+  "name": "practica4-eliasib",
+  "version": "1.0.0",
+  "description": "Backend para Sakila",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tovar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
