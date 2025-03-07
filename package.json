@@ -4,7 +4,7 @@
   "description": "Backend para Sakila",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon --env-file=.env app.js"
   },
   "author": "Tovar",
   "license": "MIT",
