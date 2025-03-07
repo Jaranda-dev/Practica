@@ -1,10 +1,9 @@
 const express = require('express')
+const actorRoutes = require('./routes/actorRoutes.js')
 const app = express()
 const port = 44221
 
-app.get('/', (req, res) => {
-    res.send('Hola')
-})
+app.use('/actor', actorRoutes)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
