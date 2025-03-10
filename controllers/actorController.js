@@ -1,11 +1,14 @@
-class EstudiantesController {
+import { prisma } from "../db.js"
+
+class ActorController {
     constructor() {
 
     }
 
-    get(req, res) {
-        return res.json({msg: "Hola papu"})
+    async get(req, res) {
+        const actores = await prisma.actor.findMany()
+        res.json({data: actores})
     }
 }
 
-module.exports = new EstudiantesController();
+export default new ActorController()

@@ -1,5 +1,6 @@
-const express = require('express')
-const actorRoutes = require('./routes/actorRoutes.js')
+import express from 'express'
+import actorRoutes from './routes/actorRoutes.js'
+
 const app = express()
 const port = 44221
 
