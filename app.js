@@ -7,6 +7,7 @@ import countryRoutes from './routes/countryRoutes.js'
 import customerRoutes from './routes/customerRoutes.js'
 import filmRoutes from './routes/filmRoutes.js'
 import inventoryRoutes from './routes/inventoryRoutes.js'
+import languageRoutes from './routes/languageRoutes.js'
 
 const app = express()
 const port = 44221
@@ -19,6 +20,7 @@ app.use('/paises', countryRoutes)
 app.use('/clientes', customerRoutes)
 app.use('/peliculas', filmRoutes)
 app.use('/inventarios', inventoryRoutes)
+app.use('/idiomas', languageRoutes)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
