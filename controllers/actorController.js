@@ -6,7 +6,11 @@ class ActorController {
     }
 
     async get(req, res) {
-        const actores = await prisma.actor.findMany()
+        const actores = await prisma.actor.findMany({
+            include: {
+                film_actor: true
+            }
+        })
         res.json({data: actores})
     }
 }
