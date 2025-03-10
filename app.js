@@ -11,6 +11,7 @@ import languageRoutes from './routes/languageRoutes.js'
 import paymentRoutes from './routes/paymentRoutes.js'
 import rentalRoutes from './routes/rentalRoutes.js'
 import staffRoutes from './routes/staffRoutes.js'
+import storeRoutes from './routes/storeRoutes.js'
 
 const app = express()
 const port = 44221
@@ -27,7 +28,7 @@ app.use('/idiomas', languageRoutes)
 app.use('/pagos', paymentRoutes)
 app.use('/alquileres', rentalRoutes)
 app.use('/personal', staffRoutes)
-
+app.use('/tiendas', storeRoutes)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
