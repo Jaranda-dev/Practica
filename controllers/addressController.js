@@ -6,7 +6,7 @@ class AddressController {
     }
 
     async get(req, res) {
-        const actores = await prisma.address.findMany({
+        const direcciones = await prisma.address.findMany({
             include: {
                 city: true,
                 customer: true,
@@ -14,7 +14,7 @@ class AddressController {
                 store: true
             }
         })
-        res.json({data: actores})
+        res.json({data: direcciones})
     }
 }
 
