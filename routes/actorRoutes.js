@@ -4,7 +4,6 @@ import { body } from 'express-validator'
 const router = express.Router()
 
 router.get('/', actorController.get)
-router.get('/:id', actorController.show)
 router.post(
     '/',
     [
@@ -13,14 +12,17 @@ router.post(
     ],
     actorController.create
 )
-router.put(
-    '/:id',
+
+router.route('/:id')
+    .get(actorController.show)
+    .put(
     [
         body('first_name').notEmpty().withMessage('First name is required'),
         body('last_name').notEmpty().withMessage('Last name is required')
     ],
     actorController.update
-)
-router.delete('/:id', actorController.delete)
+    )
+    .delete(actorController.delete)
+
 
 export default router
