@@ -19,6 +19,7 @@ import filmTextRoutes from './routes/filmTextRoutes.js'
 const app = express()
 const port = 44221
 
+app.use(express.json())
 app.use('/actores', actorRoutes)
 app.use('/direcciones', addressRoutes)
 app.use('/categorias', categoryRoutes)
