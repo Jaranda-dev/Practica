@@ -14,6 +14,7 @@ import staffRoutes from './routes/staffRoutes.js'
 import storeRoutes from './routes/storeRoutes.js'
 import filmActorRoutes from './routes/filmActorRoutes.js'
 import filmCategoryRoutes from './routes/filmCategoryRoutes.js'
+import filmTextRoutes from './routes/filmTextRoutes.js'
 
 const app = express()
 const port = 44221
@@ -33,7 +34,7 @@ app.use('/personal', staffRoutes)
 app.use('/tiendas', storeRoutes)
 app.use('/peliculasActores', filmActorRoutes)
 app.use('/peliculasCategorias', filmCategoryRoutes)
-
+app.use('/peliculasTextos', filmTextRoutes)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
