@@ -27,22 +27,45 @@ app.use(cors({
   }));
 
 app.use(express.json())
-app.use('/actores', actorRoutes)
-app.use('/direcciones', addressRoutes)
-app.use('/categorias', categoryRoutes)
-app.use('/ciudades', cityRoutes)
-app.use('/paises', countryRoutes)
-app.use('/clientes', customerRoutes)
-app.use('/peliculas', filmRoutes)
-app.use('/inventarios', inventoryRoutes)
-app.use('/idiomas', languageRoutes)
-app.use('/pagos', paymentRoutes)
-app.use('/alquileres', rentalRoutes)
-app.use('/personal', staffRoutes)
-app.use('/tiendas', storeRoutes)
-app.use('/peliculasActores', filmActorRoutes)
-app.use('/peliculasCategorias', filmCategoryRoutes)
-app.use('/peliculasTextos', filmTextRoutes)
+app.use('/actor', actorRoutes)
+app.use('/address', addressRoutes)
+app.use('/category', categoryRoutes)
+app.use('/city', cityRoutes)
+app.use('/country', countryRoutes)
+app.use('/customer', customerRoutes)
+app.use('/film', filmRoutes)
+app.use('/inventory', inventoryRoutes)
+app.use('/language', languageRoutes)
+app.use('/payment', paymentRoutes)
+app.use('/rental', rentalRoutes)
+app.use('/staff', staffRoutes)
+app.use('/store', storeRoutes)
+app.use('/film_actor', filmActorRoutes)
+app.use('/film_category', filmCategoryRoutes)
+app.use('/film_text', filmTextRoutes)
+app.use('/tablas', (req, res) => {
+  const tablas = [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ]
+
+  const tablasConTitulo = tablas.map(tabla => ({ title: tabla }))
+  res.send({ data: tablasConTitulo })
+})
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
