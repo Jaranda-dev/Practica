@@ -2,7 +2,7 @@ import { prisma } from "../db.js";
 import { validationResult } from "express-validator";
 
 class InventoryController {
-    async get(res) {
+    async get(req, res) {
         try {
             const inventories = await prisma.inventory.findMany({
                 include: {

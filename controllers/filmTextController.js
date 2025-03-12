@@ -2,7 +2,7 @@ import { prisma } from "../db.js";
 import { validationResult } from "express-validator";
 
 class FilmTextController {
-    async get(res) {
+    async get(req, res) {
         try {
             const filmTexts = await prisma.film_text.findMany();
             res.json({ data: filmTexts });

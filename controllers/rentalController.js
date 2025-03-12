@@ -2,7 +2,7 @@ import { prisma } from "../db.js";
 import { validationResult } from "express-validator";
 
 class RentalController {
-    async get(res) {
+    async get(req, res) {
         try {
             const rentals = await prisma.rental.findMany({
                 include: {
