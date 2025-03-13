@@ -7,13 +7,14 @@ class RentalController {
             const rentals = await prisma.rental.findMany({
                 include: {
                     payment: true,
-                    customer: true,
+                    // customer: true,
                     inventory: true,
-                    staff: true
+                    // staff: true
                 }
             });
             res.json({ data: rentals });
         } catch (error) {
+            console.log(error)
             res.status(500).json({ error: "Error al obtener los alquileres." });
         }
     }
@@ -87,10 +88,11 @@ class RentalController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         try {
             const { id } = req.params;
-            await prisma.rental.delete({ where: { rental_id: Number(id) } });
+            prisma.payment.delete({ where: { rental_id: Number(id) } });
+            prisma.rental.delete({ where: { rental_id: Number(id) } });
             res.json({ message: "Alquiler eliminado correctamente." });
         } catch (error) {
             res.status(500).json({ error: "Error al eliminar el alquiler." });

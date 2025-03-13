@@ -71,10 +71,13 @@ class ActorController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         const { id } = req.params
         try {
-            await prisma.actor.delete({
+            prisma.film_actor.delete({
+                where: { actor_id: Number(id)}
+            })
+            prisma.actor.delete({
                 where: { actor_id: Number(id)}
             })
             res.status(200).json({data: "Actor eliminado"})

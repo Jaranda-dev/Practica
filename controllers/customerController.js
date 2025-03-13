@@ -82,10 +82,16 @@ class CustomerController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         const { id } = req.params
         try {
-            await prisma.customer.delete({
+            prisma.payment.delete({
+                where: { customer_id: Number(id)}
+            })
+            prisma.rental.delete({
+                where: { customer_id: Number(id)}
+            })
+            prisma.customer.delete({
                 where: { customer_id: Number(id)}
             })
             res.status(200).json({data: "Cliente eliminado"})

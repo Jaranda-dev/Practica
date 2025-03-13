@@ -79,10 +79,11 @@ class InventoryController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         try {
             const { id } = req.params;
-            await prisma.inventory.delete({ where: { inventory_id: Number(id) } });
+            prisma.rental.delete({ where: { inventory_id: Number(id) } });
+            prisma.inventory.delete({ where: { inventory_id: Number(id) } });
             res.json({ message: "Inventario eliminado correctamente." });
         } catch (error) {
             res.status(500).json({ error: "Error al eliminar el inventario." });

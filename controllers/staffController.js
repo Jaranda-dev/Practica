@@ -89,10 +89,12 @@ class StaffController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         try {
             const { id } = req.params;
-            await prisma.staff.delete({ where: { staff_id: Number(id) } });
+            prisma.payment.delete({ where: { staff_id: Number(id) } });
+            prisma.rental.delete({ where: { staff_id: Number(id) } });
+            prisma.staff.delete({ where: { staff_id: Number(id) } });
             res.json({ message: "Staff eliminado correctamente." });
         } catch (error) {
             res.status(500).json({ error: "Error al eliminar el staff." });

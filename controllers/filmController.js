@@ -96,14 +96,25 @@ class FilmController {
         }
     }
 
-    async delete(req, res) {
+    delete(req, res) {
         const { id } = req.params
         try {
-            await prisma.film.delete({
+            
+            prisma.film_actor.deleteMany({
                 where: { film_id: Number(id)}
+            })
+            prisma.film_category.deleteMany({
+                where: { film_id: Number(id)}
+            })
+            prisma.inventory.deleteMany({
+                where: { film_id: Number(id)}
+            })
+            prisma.film.delete({
+                where: {film_id: Number(id)}
             })
             res.status(200).json({data: "Pelicula eliminada"})
         } catch (error) {
+            console.log(error)
             res.status(500).json(error)
         }
         
