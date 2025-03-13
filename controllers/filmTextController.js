@@ -41,7 +41,7 @@ class FilmTextController {
             });
             res.status(201).json({ data: newFilmText });
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el texto de la película." });
+            res.status(500).json({ error: error.message });
         }
     }
 
