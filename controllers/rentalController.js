@@ -88,11 +88,11 @@ class RentalController {
         }
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         try {
             const { id } = req.params;
-            prisma.payment.delete({ where: { rental_id: Number(id) } });
-            prisma.rental.delete({ where: { rental_id: Number(id) } });
+            await prisma.payment.deleteMany({ where: { rental_id: Number(id) } });
+            await prisma.rental.delete({ where: { rental_id: Number(id) } });
             res.json({ message: "Alquiler eliminado correctamente." });
         } catch (error) {
             res.status(500).json({ error: "Error al eliminar el alquiler." });

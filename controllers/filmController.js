@@ -96,26 +96,32 @@ class FilmController {
         }
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         const { id } = req.params
         try {
-            
-            prisma.film_actor.deleteMany({
+            const inventories = await prisma.inventory.findMany({
+                where: { film_id: Number(id) }
+            })
+            const inventoryIds = inventories.map(inventory => inventory.inventory_id)
+            await prisma.rental.deleteMany({
+                where: { inventory_id: { in: inventoryIds } }
+            })
+            await prisma.film_actor.deleteMany({
                 where: { film_id: Number(id)}
             })
-            prisma.film_category.deleteMany({
+            await prisma.film_category.deleteMany({
                 where: { film_id: Number(id)}
             })
-            prisma.inventory.deleteMany({
+            await prisma.inventory.deleteMany({
                 where: { film_id: Number(id)}
             })
-            prisma.film.delete({
+            await prisma.film.delete({
                 where: {film_id: Number(id)}
             })
             res.status(200).json({data: "Pelicula eliminada"})
         } catch (error) {
-            console.log(error)
-            res.status(500).json(error)
+            console.log(error.message)
+            res.status(500).json(error.message)
         }
         
     }

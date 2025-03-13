@@ -8,11 +8,12 @@ class PaymentController {
                 include: {
                     customer: true,
                     rental: true,
-                    staff: true
+                    // staff: true
                 }
             });
             res.json({ data: payments });
         } catch (error) {
+            console.log(error)
             res.status(500).json({ error: "Error al obtener los pagos." });
         }
     }

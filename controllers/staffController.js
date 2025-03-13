@@ -89,15 +89,19 @@ class StaffController {
         }
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         try {
             const { id } = req.params;
-            prisma.payment.delete({ where: { staff_id: Number(id) } });
-            prisma.rental.delete({ where: { staff_id: Number(id) } });
-            prisma.staff.delete({ where: { staff_id: Number(id) } });
+            await prisma.store.updateMany({
+                where: { manager_staff_id: Number(id) },
+                data: { manager_staff_id: null }
+            });
+            await prisma.payment.deleteMany({ where: { staff_id: Number(id) } });
+            await prisma.rental.deleteMany({ where: { staff_id: Number(id) } });
+            await prisma.staff.delete({ where: { staff_id: Number(id) } });
             res.json({ message: "Staff eliminado correctamente." });
         } catch (error) {
-            res.status(500).json({ error: "Error al eliminar el staff." });
+            res.status(500).json({ error: error.message});
         }
     }
 }
