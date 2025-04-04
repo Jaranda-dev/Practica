@@ -17,6 +17,7 @@ import filmActorRoutes from './routes/filmActorRoutes.js'
 import filmCategoryRoutes from './routes/filmCategoryRoutes.js'
 import filmTextRoutes from './routes/filmTextRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import rolesRutes from  './routes/rolesRoutes.js'
 
 
 
@@ -47,6 +48,7 @@ app.use('/film_actor', filmActorRoutes)
 app.use('/film_category', filmCategoryRoutes)
 app.use('/film_text', filmTextRoutes)
 app.use('/auth',authRoutes)
+app.use('/roles',rolesRutes)
 app.use('/tablas', (req, res) => {
   const tablas = [
     "actor",
