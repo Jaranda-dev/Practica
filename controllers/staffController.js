@@ -1,5 +1,6 @@
 import { prisma } from "../db.js";
 import { validationResult } from "express-validator";
+import { hashPassword } from '../utils/hashPassword.js';
 
 class StaffController {
     async get(req, res) {
@@ -35,31 +36,52 @@ class StaffController {
         }
     }
 
-    async create(req, res) {
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
+  
 
-            const { first_name, last_name, address_id, email, store_id, username, password, active } = req.body;
-            const newStaff = await prisma.staff.create({
-                data: {
-                    first_name,
-                    last_name,
-                    address_id,
-                    email,
-                    store_id,
-                    username,
-                    password,
-                    active
-                }
-            });
-            res.status(201).json({ data: newStaff });
-        } catch (error) {
-            res.status(500).json({ error: "Error al crear el staff." });
+    async create(req, res) {
+      try {
+        // Validar si hay errores en los datos enviados
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
         }
+    
+        // Obtener los datos del cuerpo de la solicitud
+        const { first_name, last_name, address_id, email, store_id, username, password, active, roleId } = req.body;
+    
+        // Hashear la contraseña antes de guardarla
+        const hashedPassword = await hashPassword(password);
+    
+        // Crear un nuevo registro en la base de datos para el staff
+        const newStaff = await prisma.staff.create({
+          data: {
+            first_name,
+            last_name,
+            address_id,
+            email,
+            store_id,
+            username,
+            password: hashedPassword, 
+            active,
+            roleId,
+          }
+        });
+    
+       
+        res.status(201).json({ data: newStaff });
+      } catch (error) {
+        console.error('Error al crear el staff:', error); // Log del error en el servidor para depuración
+    
+        // Determinar el tipo de error y devolver el mensaje adecuado
+        if (error instanceof prisma.PrismaClientValidationError) {
+          return res.status(400).json({ error: 'Error de validación en la base de datos', details: error.message });
+        }
+    
+        // Devolver un error genérico si no es un error conocido
+        return res.status(500).json({ error: 'Error al crear el staff', details: error.message });
+      }
     }
+    
 
     async update(req, res) {
         try {

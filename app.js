@@ -16,6 +16,9 @@ import storeRoutes from './routes/storeRoutes.js'
 import filmActorRoutes from './routes/filmActorRoutes.js'
 import filmCategoryRoutes from './routes/filmCategoryRoutes.js'
 import filmTextRoutes from './routes/filmTextRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+
+
 
 const app = express()
 const port = 44221
@@ -43,6 +46,7 @@ app.use('/store', storeRoutes)
 app.use('/film_actor', filmActorRoutes)
 app.use('/film_category', filmCategoryRoutes)
 app.use('/film_text', filmTextRoutes)
+app.use('/auth',authRoutes)
 app.use('/tablas', (req, res) => {
   const tablas = [
     "actor",
@@ -55,6 +59,7 @@ app.use('/tablas', (req, res) => {
     "payment",
     "rental",
     "staff",
+    
   ]
 
   const tablasConTitulo = tablas.map(tabla => ({ title: tabla }))

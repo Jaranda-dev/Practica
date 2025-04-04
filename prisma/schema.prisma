@@ -193,26 +193,44 @@ model rental {
   @@index([staff_id], map: "idx_fk_staff_id")
 }
 
+
+
+
+
 model staff {
   staff_id                            Int       @id @default(autoincrement()) @db.UnsignedTinyInt
   first_name                          String    @db.VarChar(45)
   last_name                           String    @db.VarChar(45)
   address_id                          Int       @db.UnsignedSmallInt
   picture                             Bytes?    @db.Blob
-  email                               String?   @db.VarChar(50)
+  email                               String?   @unique @db.VarChar(50)
   store_id                            Int       @db.UnsignedTinyInt
   active                              Boolean   @default(true)
   username                            String    @db.VarChar(16)
-  password                            String?   @db.VarChar(40)
+  password                            String?    @db.VarChar(255)
   last_update                         DateTime  @default(now()) @db.Timestamp(0)
+  verificationCode                    String?   @db.VarChar(255)  // Agregar la columna para el código de verificación
+  resetCode                           String?   @db.VarChar(255)  // Agregar la columna para el código de verificación
   payment                             payment[]
   rental                              rental[]
   address                             address   @relation(fields: [address_id], references: [address_id], map: "fk_staff_address")
   store_staff_store_idTostore         store     @relation("staff_store_idTostore", fields: [store_id], references: [store_id], map: "fk_staff_store")
   store_store_manager_staff_idTostaff store?    @relation("store_manager_staff_idTostaff")
 
+  // Relación con la tabla Role
+  roleId                               Int?
+  role                                 Role?    @relation("StaffRoles", fields: [roleId], references: [id])
+
   @@index([address_id], map: "idx_fk_address_id")
   @@index([store_id], map: "idx_fk_store_id")
+}
+
+
+model Role {
+  id          Int      @id @default(autoincrement()) @db.UnsignedSmallInt
+  name        String   @db.VarChar(50)
+  description String?  @db.Text
+  staff       staff[]  @relation("StaffRoles") // Relación con 'staff'
 }
 
 model store {

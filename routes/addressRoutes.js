@@ -1,7 +1,16 @@
-import express from 'express'
-import addressController from '../controllers/addressController.js'
-const router = express.Router()
+import express from 'express';
+import addressController from '../controllers/addressController.js';
+import { roleMiddleware } from '../Middleware.roles.js';
+import { authenticateToken } from '../authenticateToken.js';
 
-router.get('/', addressController.get)
+const router = express.Router();
 
-export default router
+// Ruta para obtener todas las direcciones (acceso solo de lectura para Invitado)
+router.get(
+  '/',  
+  authenticateToken, 
+  roleMiddleware(['Invitado', 'Cliente', 'Administrador']), // Acceso de lectura para Invitado, Cliente y Administrador
+  addressController.get
+);
+
+export default router;
