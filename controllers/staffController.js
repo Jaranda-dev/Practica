@@ -91,7 +91,7 @@ class StaffController {
             }
             
             const { id } = req.params;
-            const { first_name, last_name, address_id, email, store_id, username, password, active } = req.body;
+            const { first_name, last_name, address_id, email, store_id, username, password, active ,roleId} = req.body;
             const updatedStaff = await prisma.staff.update({
                 where: { staff_id: Number(id) },
                 data: {
@@ -102,7 +102,8 @@ class StaffController {
                     store_id,
                     username,
                     password,
-                    active
+                    active,
+                    roleId
                 }
             });
             res.json({ data: updatedStaff });

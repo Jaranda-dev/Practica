@@ -50,7 +50,8 @@ router.route('/:id')
       body('store_id').isInt().withMessage('Store ID must be an integer'),
       body('username').notEmpty().withMessage('Username is required'),
       body('password').notEmpty().withMessage('Password is required'),
-      body('active').isBoolean().withMessage('Active must be a boolean')
+      body('active').isBoolean().withMessage('Active must be a boolean'),
+      body('roleId').isInt().withMessage('Role ID must be an integer')
     ],
     staffController.update
   )
