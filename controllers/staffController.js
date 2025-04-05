@@ -108,7 +108,7 @@ class StaffController {
             });
             res.json({ data: updatedStaff });
         } catch (error) {
-            res.status(500).json({ error: "Error al actualizar el staff." });
+            res.status(500).json({ error: error });
         }
     }
 
